@@ -51,14 +51,19 @@ let mockTweets =  [{
 
 // get all tweets
 router.get('/', (req, res) =>{
- 
+ req.app.locals.db.collection('tweets')
+ .find()
+ .toArray()
+ .then(result => {
+    console.log(result)
+ })
 });
 
 
 
 // post - write new tweet
 router.post('/write', (req, res) =>{
-  
+  console.log('hi')
 });
 
 
