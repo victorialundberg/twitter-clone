@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ObjectId = require('mongoDb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
+
 
 
 
@@ -50,7 +51,7 @@ let mockTweets =  [{
 
 // get all tweets
 router.get('/', (req, res) =>{
-  res.json(mockTweets)
+ 
 });
 
 // post - write new tweet

@@ -2,7 +2,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const cors = require('cors')
+const cors = require('cors');
+const MongoClient = require('mongodb').MongoClient;
+
+
+
+MongoClient.connect('mongodb://localhost:27017')
+.then(client => {
+    console.log('database:', ' we are connected');
+
+    const db = client.db('tweet-clone');
+    
+    app.locals.db = db;
+})
+.catch(err => {
+    console.log('database:', 'connection failed', err);
+});
+
 
 
 
