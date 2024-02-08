@@ -63,7 +63,15 @@ router.get('/', (req, res) =>{
 
 // post - write new tweet
 router.post('/write', (req, res) =>{
-  console.log('hi')
+
+  let tweet = {
+    content: "Min första tweet!"
+  }
+
+  req.app.locals.db.collection("tweets").insertMany(tweet);
+
+  res.json(tweet);
+
 });
 
 

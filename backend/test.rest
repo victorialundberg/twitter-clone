@@ -2,7 +2,11 @@ GET HTTP://192.168.168.204:3000/api/tweets
 
 ### 
 
-POST HTTP://192.168.168.204:3000/api/tweets
+POST HTTP://192.168.168.204:3000/api/tweets/write/
+Content-Type: "application/json"
 
+{
+    content: "tweet tweet!"
+}
 
 ###
