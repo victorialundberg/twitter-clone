@@ -44,6 +44,9 @@ function sendtweet(event) {
         })
         .then(res => res.json())
         .then(data => {
+            userName.value = "";
+            tweetInput.value = "";
+            fetchFeed();
             console.log(data)
     })
 }

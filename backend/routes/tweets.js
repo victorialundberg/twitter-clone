@@ -12,26 +12,68 @@ router.get('/', (req, res) =>{
  .find()
  .toArray()
  .then(result => {
-    res.json(result)
- })
+  
+  let sortedResult = result.sort((a, b) => {
+    return b.posted - a.posted;
+  })
+
+    res.json(sortedResult)
+  })
 });
 
 
 
 // post - write new tweet
-router.post('/write', (req, res) =>{
+router.post('/write', async (req, res) =>{
 
 
     let tweet = {
         user: req.body.user,
-        content: req.body.content
+        content: req.body.content,
+        posted: new Date(),
         }
 
   req.app.locals.db.collection("tweets").insertOne(tweet)
   .then(done => {
-    res.json(tweet)
     console.log("insert", done);
   });
+
+  try {
+
+    await OpenAIError.tweet.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "You are a mountain troll who hates people, you are grumpy and annoyed and gives short answers."
+        },
+        {
+          role: "user",
+          content: req.body.tweet
+        }
+      ]
+    })
+    .then(data => {
+      console.log("ai-answer", data.choices[0].message.content);
+      let aiTweet = {
+        user: req.body.user,
+        content: req.body.content,
+        name: "Moutain Troll Engvar",
+        posted: new Date()
+      }
+
+      req.app.locals.db.collection("tweets").insertOne(aiTweet)
+      .then(done => {
+        res.json(aiTweet)
+        console.log("insert", done);
+      });
+    })
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "somthing went wrong"});
+  }
+
 });
 
 

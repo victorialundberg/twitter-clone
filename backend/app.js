@@ -4,7 +4,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
+require("dotenv").config();
+const OpenAi = require("openai");
 
+const openai = new OpenAi({
+    apiKey: process.env.AI_API_KEY,
+})
+
+// console.log("openai", openai);
 
 
 MongoClient.connect('mongodb://localhost:27017')
