@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongodb').ObjectId;
+const OpenAi = require("openai");
+
+const openai = new OpenAi({
+    apiKey: process.env.AI_API_KEY,
+})
 
 
 
@@ -40,7 +45,7 @@ router.post('/write', async (req, res) =>{
 
   try {
 
-    await OpenAIError.tweet.completions.create({
+    await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
@@ -49,22 +54,21 @@ router.post('/write', async (req, res) =>{
         },
         {
           role: "user",
-          content: req.body.tweet
+          content: req.body.content
         }
       ]
     })
     .then(data => {
       console.log("ai-answer", data.choices[0].message.content);
       let aiTweet = {
-        user: req.body.user,
-        content: req.body.content,
-        name: "Moutain Troll Engvar",
+        user: "Mountain Troll Engvar",
+        content: data.choices[0].message.content,
         posted: new Date()
       }
 
       req.app.locals.db.collection("tweets").insertOne(aiTweet)
       .then(done => {
-        res.json(aiTweet)
+        res.json(tweet)
         console.log("insert", done);
       });
     })
