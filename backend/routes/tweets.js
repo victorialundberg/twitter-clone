@@ -50,7 +50,7 @@ router.post('/write', async (req, res) =>{
       messages: [
         {
           role: "system",
-          content: "You are a mountain troll who hates people, you are grumpy and annoyed and gives short answers."
+          content: "Du är en ballerina som tycker om att dansa, klä ut sig till en prinsessa och är jätteduktig på matte och geografi."
         },
         {
           role: "user",
@@ -61,7 +61,7 @@ router.post('/write', async (req, res) =>{
     .then(data => {
       console.log("ai-answer", data.choices[0].message.content);
       let aiTweet = {
-        user: "Mountain Troll Engvar",
+        user: "Ballerinan",
         content: data.choices[0].message.content,
         posted: new Date()
       }
