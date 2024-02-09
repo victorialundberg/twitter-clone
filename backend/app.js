@@ -7,6 +7,8 @@ const MongoClient = require('mongodb').MongoClient;
 
 
 
+
+
 MongoClient.connect('mongodb://localhost:27017')
 .then(client => {
     console.log('database:', ' we are connected');
@@ -40,6 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/tweets', tweetsRouter);
 app.use('/users', usersRouter);
 
+
+
+
+//console.log('openai:', openai);
 
 
 module.exports = app;
