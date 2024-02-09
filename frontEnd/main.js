@@ -1,5 +1,7 @@
 
 let tweetBtn = document.querySelector('#tweetBtn');
+let userName = document.querySelector('#userName');
+
 
 let tweetInput = document.querySelector('#tweetInput');
 
@@ -44,8 +46,13 @@ function sendtweet(event) {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            userName.value = '';
+            tweetInput.value = '';
+
+           
+            console.log('data', data)
     })
+
 }
 
 
