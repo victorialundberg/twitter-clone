@@ -23,6 +23,7 @@ router.post('/write', (req, res) =>{
 
 
     let tweet = {
+        user: req.body.user,
         content: req.body.content
         }
 

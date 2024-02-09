@@ -10,13 +10,12 @@ feedBox.innerHTML= '';
 fetch('http://192.168.168.204:3000/api/tweets')
 .then(res => res.json())
 .then(data => {
-    
-   
-
     const feedBox = document.getElementById('feedBox'); 
 
     data.forEach(tweet => {
-        feedBox.innerHTML += `<div id="tweet-update-box"><p>${tweet.content}</p></div>`;
+        feedBox.innerHTML += `<div class="tweet-update-box">
+                            <p>${tweet.user}:</p>
+                            <p>${tweet.content}</p></div>`;
     });
 })
 .catch(error => {
@@ -29,7 +28,10 @@ fetch('http://192.168.168.204:3000/api/tweets')
 function sendtweet(event) {
     event.preventDefault()
     
-    let content = {content: tweetInput.value}
+    let content = {
+        user: userName.value,
+        content: tweetInput.value
+    }
   
     
     fetch('http://192.168.168.204:3000/api/tweets/write', {
